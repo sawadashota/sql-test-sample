@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+  app:
+    image: golang:1.11.2
+    working_dir: /go/src/github.com/sawadashota/sql-test-sample
+    volumes:
+      - .:/go/src/github.com/sawadashota/sql-test-sample
+    links:
+      - pgsql-test
+    environment:
+      GO111MODULE: "on"
+      DATABASE_URL: "postgres://docker:password@pgsql-test/docker?sslmode=disable"
+    command: go test -v -cover ./...
+  pgsql-test:
+    image: postgres:11.1
+    environment:
+      POSTGRES_DB: "docker"
+      POSTGRES_USER: "docker"
+      POSTGRES_PASSWORD: "password"
