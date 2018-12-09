@@ -1,3 +1,5 @@
+github.com/jstemmer/go-junit-report v0.0.0-20180614143834-385fac0ced9a h1:2qq552JOlVHGYvqPc9ynBnGPDHeA7p0/QRn2NkrO8vk=
+github.com/jstemmer/go-junit-report v0.0.0-20180614143834-385fac0ced9a/go.mod h1:6v2b51hI/fHJwM22ozAgKL4VKDeJcHhJFhtBdhmNjmU=
 github.com/lib/pq v1.0.0 h1:X5PMW56eZitiTeO7tKzZxFCSpbFZJtkMMooicw2us9A=
 github.com/lib/pq v1.0.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
 github.com/rubenv/sql-migrate v0.0.0-20181106121204-ba2c6a7295c5 h1:4fmVndFuOuFREP0MPVT+bymEYx/mvRBnmGamM1YfH8c=
