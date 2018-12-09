@@ -1,4 +1,4 @@
-package sql_test_sample_test
+package sample_test
 
 import (
 	"database/sql"
@@ -74,22 +74,22 @@ func database(t *testing.T) *sql.DB {
 }
 
 func TestGetUser(t *testing.T) {
-	sql_test_sample.DB = database(t)
-	defer sql_test_sample.DB.Close()
+	sample.DB = database(t)
+	defer sample.DB.Close()
 
 	type args struct {
 		id int
 	}
 	cases := map[string]struct {
 		args    args
-		want    *sql_test_sample.User
+		want    *sample.User
 		wantErr bool
 	}{
 		"find exists user": {
 			args: args{
 				id: 1,
 			},
-			want: &sql_test_sample.User{
+			want: &sample.User{
 				Id:   1,
 				Name: "Bob",
 				Sex:  "male",
@@ -110,7 +110,7 @@ func TestGetUser(t *testing.T) {
 			migrateUp(t)
 			defer migrateDown(t)
 
-			got, err := sql_test_sample.GetUser(c.args.id)
+			got, err := sample.GetUser(c.args.id)
 			if (err != nil) != c.wantErr {
 				t.Errorf("GetUser() error = %v, wantErr %v", err, c.wantErr)
 				return
@@ -123,25 +123,25 @@ func TestGetUser(t *testing.T) {
 }
 
 func TestInsertUser(t *testing.T) {
-	sql_test_sample.DB = database(t)
-	defer sql_test_sample.DB.Close()
+	sample.DB = database(t)
+	defer sample.DB.Close()
 
 	type args struct {
-		user *sql_test_sample.User
+		user *sample.User
 	}
 	cases := map[string]struct {
 		args    args
-		want    *sql_test_sample.User
+		want    *sample.User
 		wantErr bool
 	}{
 		"normal": {
 			args: args{
-				user: &sql_test_sample.User{
+				user: &sample.User{
 					Name: "Mary",
 					Sex:  "female",
 				},
 			},
-			want: &sql_test_sample.User{
+			want: &sample.User{
 				Id:   2,
 				Name: "Mary",
 				Sex:  "female",
@@ -154,14 +154,14 @@ func TestInsertUser(t *testing.T) {
 			migrateUp(t)
 			defer migrateDown(t)
 
-			if err := sql_test_sample.InsertUser(c.args.user); (err != nil) != c.wantErr {
+			if err := sample.InsertUser(c.args.user); (err != nil) != c.wantErr {
 				t.Errorf("InsertUser() error = %v, wantErr %v", err, c.wantErr)
 			}
 			if c.wantErr {
 				return
 			}
 
-			u, err := sql_test_sample.GetUser(c.want.Id)
+			u, err := sample.GetUser(c.want.Id)
 			if err != nil {
 				t.Fatal(err)
 			}

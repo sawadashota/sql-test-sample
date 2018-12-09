@@ -1,4 +1,4 @@
-package sql_test_sample
+package sample
 
 import (
 	"database/sql"
