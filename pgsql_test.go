@@ -12,18 +12,18 @@ import (
 )
 
 type migrationSources struct {
-	migrations []migrate.MigrationSource
+	sources []migrate.MigrationSource
 }
 
 func (mss *migrationSources) FindMigrations() ([]*migrate.Migration, error) {
 	var migrations []*migrate.Migration
 
-	for _, ms := range mss.migrations {
-		migration, err := ms.FindMigrations()
+	for _, s := range mss.sources {
+		ms, err := s.FindMigrations()
 		if err != nil {
 			return nil, err
 		}
-		migrations = append(migrations, migration...)
+		migrations = append(migrations, ms...)
 	}
 
 	return migrations, nil
@@ -47,12 +47,12 @@ func migrateAndSeed(t *testing.T, dir migrate.MigrationDirection) {
 	defer db.Close()
 
 	mc := &migrationSources{
-		migrations: []migrate.MigrationSource{
+		sources: []migrate.MigrationSource{
 			&migrate.FileMigrationSource{
-				Dir: "sql/migrations",
+				Dir: "./sql/migrations",
 			},
 			&migrate.FileMigrationSource{
-				Dir: "sql/testdata",
+				Dir: "./sql/testdata",
 			},
 		},
 	}
